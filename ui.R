@@ -15,26 +15,76 @@ shinyUI(pageWithSidebar(
       tags$style(type='text/css', ".well { max-width: 310px; }")
     ),
     
-    p("Compare Historical Temperatures Across Locations"),
+    p("Compare Ambient Temperatures Across Cities"),
     wellPanel(      
-        h5("Locations to choose from"),
-        checkboxInput(inputId = "ash", label = "Ashville, NC", value = FALSE),
-        checkboxInput(inputId = "aus", label = "Austin, TX", value = FALSE),
-        checkboxInput(inputId = "chs", label = "Charleston, NC", value = FALSE),
-        checkboxInput(inputId = "pgv", label = "Greenville, NC", value = FALSE),
-        checkboxInput(inputId = "iah", label = "Houston, TX", value = FALSE),
-        checkboxInput(inputId = "jax", label = "Jacksonville, FL", value = FALSE),
-        checkboxInput(inputId = "lax", label = "Los Angeles, CA", value = FALSE),
-        checkboxInput(inputId = "mia", label = "Miami, FL", value = TRUE),
-        checkboxInput(inputId = "mco", label = "Orlando, FL", value = FALSE),
-        checkboxInput(inputId = "psp", label = "Palm Springs, CA", value = FALSE),
-        checkboxInput(inputId = "rdu", label = "Raleigh, NC", value = TRUE),
-        checkboxInput(inputId = "sat", label = "San Antonio, TX", value = FALSE),
-        checkboxInput(inputId = "lee", label = "Shantiniketan, FL", value = FALSE),
-        checkboxInput(inputId = "tpa", label = "Tampa, FL", value = FALSE)
-              
+        withTags(
+          div(
+            h4("US Cities"),
+            div( class="row-fluid",
+                 div( class="span5", "Atlanta, GA"),            
+                 div(class='span3', checkboxInput(inputId = "atl12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "atl13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "Austin, TX"),            
+                 div(class='span3', checkboxInput(inputId = "aus12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "aus13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "Honolulu, HI"),            
+                 div(class='span3', checkboxInput(inputId = "hnl12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "hnl13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "Los Angeles, CA"),            
+                 div(class='span3', checkboxInput(inputId = "lax12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "lax13", label = "2013", value=TRUE))),
+            div( class="row-fluid",
+               div( class="span5", "Miami, FL"),            
+               div(class='span3', checkboxInput(inputId = "mia12", label = "2012", value=FALSE)),
+               div(class='span3', checkboxInput(inputId = "mia13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "New York, NY"),            
+                 div(class='span3', checkboxInput(inputId = "lga12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "lga13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "Portland, OR"),            
+                 div(class='span3', checkboxInput(inputId = "pdx12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "pdx13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "Raleigh, NC"),            
+                 div(class='span3', checkboxInput(inputId = "rdu12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "rdu13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "San Antonio, TX"),            
+                 div(class='span3', checkboxInput(inputId = "sat12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "sat13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "San Francisco, CA"),            
+                 div(class='span3', checkboxInput(inputId = "sfo12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "sfo13", label = "2013", value=TRUE))),
+            h4("Outside the US"),
+            div( class="row-fluid",
+                 div( class="span5", "London, UK"),            
+                 div(class='span3', checkboxInput(inputId = "lhr12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "lhr13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "Sydney, AUS"),            
+                 div(class='span3', checkboxInput(inputId = "syd12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "syd13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "Brisbane, AUS"),            
+                 div(class='span3', checkboxInput(inputId = "bne12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "bne13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "Singapore, SIN"),            
+                 div(class='span3', checkboxInput(inputId = "sin12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "sin13", label = "2013", value=FALSE))),
+            div( class="row-fluid",
+                 div( class="span5", "Mumbai, IND"),            
+                 div(class='span3', checkboxInput(inputId = "bom12", label = "2012", value=FALSE)),
+                 div(class='span3', checkboxInput(inputId = "bom13", label = "2013", value=FALSE)))
+            
+          ))
         
-    ),    
+    ),#ends wellpanel    
     
     
     wellPanel(
@@ -57,14 +107,12 @@ shinyUI(pageWithSidebar(
   
   
   mainPanel(
-#    h2("Which City has the Ideal Temperature for me?"),
     h2("Temperature Comparisons across Cities"),
-    tabsetPanel(id ="graphtabs",
-                  
+    tabsetPanel(id ="graphtabs",                  
       tabPanel("Histogram", 
                  sliderInput(inputId = "opt.bin.width",
                              label = "Choose Temperature Band (degrees F)",
-                             min = 1, max = 10, step = 1, value = 1), 
+                             min = 1, max = 10, step = 1, value = 2), 
                plotOutput(outputId="TemperatureHistogram", width = "800px", height = "800px")
                )
       , tabPanel("Bar Plot", plotOutput("TempBarPlot", height="800px"))
@@ -80,6 +128,7 @@ shinyUI(pageWithSidebar(
                  )
       , tabPanel("Mean Max. & Min", HTML(mmhtmlstring), plotOutput("MeanMaxMinPlot", height="600px") )
       , tabPanel("Density Plot", plotOutput("TempKDE"))
+#      , tabPanel("About", textOutput("TempKDE"))
       
     )#end tabsetPanel
   ) #end MainPanel

@@ -80,17 +80,15 @@ compareCitiesHistograms <- function (df, opt.bin.width=1) {
 ##################
 ##################
 
-
+#dir <- "~/RStats/Shiny/WeatherCompare/wxdata/"
 #Calculations that are needed. But not reactive go here
 dir <- "wxdata/"
-flist <- list.files(dir)
-flist <- paste0(dir, flist) #full path with no spaces
+flist <- list.files(dir, pattern="csv$")
+flist <- paste0(dir, flist) #full path of data files
 city.temp.list <- lapply(flist, read.csv, header=FALSE, stringsAsFactors=FALSE)
 city.temp.df <- ldply(city.temp.list) #make it one giant data.frame
 names(city.temp.df) <- c("City","Date","Hour","Temperature")
 
-#unique(city.temp.df$City)
-#str(city.temp.df)
 
 cities <- unique(city.temp.df$City)
 #print(cities)
@@ -113,21 +111,42 @@ shinyServer(function(input, output) {
   
   #values and dataframes available to all reactive functions inside Server.R
   city.compare.list <- reactive({
-    cl <- NULL #cl is citiesList. We are going to store the indexes of each city checked in it.
-    if (input$ash ==1 )    {cl <- c(cl,1)}
-    if (input$aus ==1 )    {cl <- c(cl,2)}
-    if (input$chs ==1 )    {cl <- c(cl,3)}
-    if (input$pgv ==1 )    {cl <- c(cl,4)}
-    if (input$iah ==1 )    {cl <- c(cl,5)}    
-    if (input$jax ==1 )    {cl <- c(cl,6)}
-    if (input$lax ==1 )    {cl <- c(cl,7)}
-    if (input$mia ==1 )    {cl <- c(cl,8)}
-    if (input$mco ==1 )    {cl <- c(cl,9)}
-    if (input$psp ==1 )    {cl <- c(cl,10)}    
-    if (input$rdu ==1 )    {cl <- c(cl,11)}
-    if (input$sat ==1 )    {cl <- c(cl,12)}
-    if (input$lee ==1 )    {cl <- c(cl,13)}
-    if (input$tpa ==1 )    {cl <- c(cl,14)}    
+    cl <- NULL #cl is citiesList. We are going to append the indexes of each city that is checked
+    #2012
+    if (input$atl12 ==1 )    {cl <- c(cl,3)}
+    if (input$aus12 ==1 )    {cl <- c(cl,5)}
+    if (input$hnl12 ==1 )    {cl <- c(cl,9)}
+    if (input$lax12 ==1 )    {cl <- c(cl,17)}
+    if (input$mia12 ==1 )    {cl <- c(cl,19)}
+    if (input$lga12 ==1 )    {cl <- c(cl,23)}
+    if (input$pdx12 ==1 )    {cl <- c(cl,27)}    
+    if (input$rdu12 ==1 )    {cl <- c(cl,29)}
+    if (input$sat12 ==1 )    {cl <- c(cl,31)}
+    if (input$sfo12 ==1 )    {cl <- c(cl,33)}
+    if (input$lhr12 ==1 )    {cl <- c(cl,15)}
+    if (input$syd12 ==1 )    {cl <- c(cl,37)}
+    if (input$bne12 ==1 )    {cl <- c(cl,7)}
+    if (input$sin12 ==1 )    {cl <- c(cl,35)}
+    if (input$bom12 ==1 )    {cl <- c(cl,21)}
+    #2013
+    if (input$atl13 ==1 )    {cl <- c(cl,4)}
+    if (input$aus13 ==1 )    {cl <- c(cl,6)}
+    if (input$hnl13 ==1 )    {cl <- c(cl,10)}
+    if (input$lax13 ==1 )    {cl <- c(cl,18)}
+    if (input$mia13 ==1 )    {cl <- c(cl,20)}
+    if (input$lga13 ==1 )    {cl <- c(cl,24)}
+    if (input$pdx13 ==1 )    {cl <- c(cl,28)}    
+    if (input$rdu13 ==1 )    {cl <- c(cl,30)}
+    if (input$sat13 ==1 )    {cl <- c(cl,32)}
+    if (input$sfo13 ==1 )    {cl <- c(cl,34)}
+    if (input$lhr13 ==1 )    {cl <- c(cl,16)}
+    if (input$syd13 ==1 )    {cl <- c(cl,38)}
+    if (input$bne13 ==1 )    {cl <- c(cl,8)}
+    if (input$sin13 ==1 )    {cl <- c(cl,36)}
+    if (input$bom13 ==1 )    {cl <- c(cl,22)}
+    
+    
+    #Now create the smaller subset of cities we are interested in
     city.compare.list <-  cities[cl]    #this gets returned and can be used by other functions
   })
   
