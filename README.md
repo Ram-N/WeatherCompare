@@ -1,17 +1,35 @@
-shinySketch
+weatherCompare
 ===========
   
-a  small webapp to create "art" using Shiny and ggplot
+**weatherCompare** is a Shiny app that compares ambient temperature distributions across cities.
+
+### The webApp URL
+You can see what the app looks like here: [http://spark.rstudio.com/ram/WeatherCompare/](http://spark.rstudio.com/ram/WeatherCompare/)
+
+<img src="figures/wxCompare.png" alt="Screen Shot of the app" style="width: 400px;"/>
+
+Select a few cities and see how their historical temperatures stack up.
+
+### Getting the Weather Data
+
+The WebApp gets all the weather data (historical) from [weatherUnderground](http://weatherunderground.com)
+
+If you'd like to get the weatherData for any city of your choice, you can use the functions in [weatherData package](https://github.com/Ram-N/weatherData) here.
+
+#### Plotting
+
+All of the plotting is done using `ggplot` and with liberal use of `facet_grid`
 
 
-Using ggplot's geom_segments to create some fun images.
+### To run this app locally you will need: 
 
-The idea is simple: Get a few parameters from the user: Canvas size, number of lines, the angle of those lines and 
-some color gradients. See if you can generate something that is aesthetically pleasing, using this 
-and random sampling.
-
-There are 3 files:
 1. ui.R
 2. server.R
-3. functionsArt.R (this file is sourced from within server.R)
+3. The `wxdata` directory and all the files inside it.
+
+#### Commands
+```
+library(shiny)
+runApp("WeatherCompare")
+```
 
